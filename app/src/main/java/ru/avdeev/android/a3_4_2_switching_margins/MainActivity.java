@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.Locale;
 
@@ -21,17 +22,19 @@ public class MainActivity extends AppCompatActivity {
     Spinner marginSpinner;
     String choiceLanguage;
     int choiceMargin;
+    TextView textView;
     private static @StyleRes int sTheme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(sTheme);
         setContentView(R.layout.activity_main);
+        setTheme(sTheme);
         languageSpinner=findViewById(R.id.languageSpinner);
         marginSpinner=findViewById(R.id.marginSpinner);
+        textView=findViewById(R.id.textView);
         givLanguage();
-        givColor();
+        givMargin();
     }
 
     public void onClick(View view) {
@@ -50,13 +53,13 @@ public class MainActivity extends AppCompatActivity {
         }
         switch (choiceMargin) {
             case 0:
-                sTheme = R.style.ThemeGreen;
+                sTheme = R.style.SmallMargin;
                 break;
             case 1:
-                sTheme = R.style.ThemeBlue;
+                sTheme = R.style.MeddleMargin;
                 break;
             case 2:
-                sTheme = R.style.ThemeBlack;
+                sTheme = R.style.BigMargin;
                 break;
             default:
                 break;
@@ -81,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void givColor() {
+    private void givMargin() {
         ArrayAdapter<CharSequence> adapterMargins = ArrayAdapter.createFromResource(this, R.array.margins, android.R.layout.simple_spinner_item);
         adapterMargins.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         marginSpinner.setAdapter(adapterMargins);
@@ -89,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         marginSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String[] choiceMargins = getResources().getStringArray(R.array.colors);
+                String[] choiceMargins = getResources().getStringArray(R.array.margins);
                 choiceMargin = i;
             }
 
